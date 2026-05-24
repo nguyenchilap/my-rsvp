@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wedding Invitation</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Quicksand:wght@400;500;600;700&family=Great+Vibes&display=swap"
+        rel="stylesheet">
+
+    <!-- Stylesheet ngoài -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- AUDIO ELEMENT -->
+    <audio id="bg-audio" loop></audio>
+
+    <!-- Nút điều khiển nhạc nền -->
+    <div id="music-trigger" style="display: none;" onclick="toggleMusic()">
+        <img src="" id="music-icon" alt="Music Control">
+    </div>
+
+    <!-- Khung Wrapper mô phỏng Mobile -->
+    <div class="wrapper">
+        <!-- ================= LAYER 1: MÀN HÌNH PHONG BÌ MỞ ĐẦU ================= -->
+        <div id="envelope-overlay">
+            <!-- Ảnh hoa văn trang trí nền (nằm trong overlay để định vị chính xác) -->
+            <img src="" class="bg-flower top-left top-left-1" alt="flower decoration">
+            <img src="" class="bg-flower top-left top-left-2" alt="flower decoration">
+
+            <img src="" class="bg-flower bottom-right" alt="flower decoration">
+
+            <div class="envelope-header">
+                <span id="envelope-header-left"></span>
+                <span id="envelope-header-center"></span>
+                <span id="envelope-header-right"></span>
+            </div>
+
+            <div class="envelope-title"></div>
+
+            <div class="envelope-container" id="envelopeContainer" onclick="unlockInvitation()">
+                <div class="tap-hint"></div>
+                <div class="envelope-flap"></div>
+                <div class="envelope-card">
+                    <img src="" id="envelope-card-img" alt="Wedding Couple Photo">
+                </div>
+                <div class="wax-seal-btn"></div>
+            </div>
+
+            <div class="envelope-pre-guest" id="envelope-pre-guest-text"></div>
+        </div>
+
+        <!-- ================= LAYER 2: NỘI DUNG CHÍNH CỦA THIỆP ================= -->
+        <div class="main-content" id="mainContent">
+
+            <!-- SECTION 1: THÔNG TIN LỄ CƯỚI CHÍNH -->
+            <section class="sec-intro">
+                <div class="invitation-box">
+                    <div class="guest-name"></div>
+                    <p id="invitation-message"></p>
+
+                    <div class="time-highlight"></div>
+                    <div class="lunar-time"></div>
+
+                    <img src="" class="divider" alt="divider">
+
+                    <div class="location-title"></div>
+                    <div class="location-name"></div>
+                    <div class="location-address"></div>
+
+                    <a href="" target="_blank" class="btn-action">XEM ĐƯỜNG ĐI</a>
+                </div>
+            </section>
+
+            <!-- SECTION 2: LỜI MỞ ĐẦU TÂM THƯ -->
+            <section class="sec-quote">
+                <p class="quote-p"></p>
+            </section>
+
+            <!-- SECTION 3: THÔNG TIN CẶP ĐÔI -->
+            <section class="sec-couple">
+                <!-- Chữ trang trí phía trên giống mockup phong bì -->
+                <div class="couple-header-decor">
+                    <span>FALL IN</span>
+                    <span>LOVE</span>
+                    <span>WEDDING</span>
+                </div>
+
+                <div class="couple-banner-wrap">
+                    <img src="" class="couple-banner-img" alt="Couple Banner">
+                    <div class="quote-en"></div>
+                </div>
+
+                <!-- Lời nhắn cảm ơn từ Anh/Chị & Bạn bè đưa lên trên -->
+                <div id="couple-thanks" class="couple-thanks-text"></div>
+
+                <!-- Icon trái tim tối giản sang trọng -->
+                <div class="couple-heart-divider">
+                    <svg viewBox="0 0 24 24">
+                        <path
+                            d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+                    </svg>
+                </div>
+
+                <!-- Tiêu đề trang trí MY LOVER nghệ thuật -->
+                <h2 class="couple-decor-title">MY LOVER</h2>
+
+                <div class="couple-profiles">
+                    <!-- Hồ sơ Chú rể -->
+                    <div class="profile-card">
+                        <img src="" id="groom-img" alt="Chú rể">
+                        <div class="name" id="groom-name"></div>
+                        <div class="role-divider">|</div>
+                        <div style="font-size: 13px; color: #666;" id="groom-role"></div>
+                    </div>
+                    <!-- Hồ sơ Cô dâu -->
+                    <div class="profile-card">
+                        <img src="" id="bride-img" alt="Cô dâu">
+                        <div class="name" id="bride-name"></div>
+                        <div class="role-divider">|</div>
+                        <div style="font-size: 13px; color: #666;" id="bride-role"></div>
+                    </div>
+                </div>
+
+                <div class="poem-viet" id="couple-poem-viet"></div>
+                <div class="poem-eng" id="couple-poem-eng"></div>
+            </section>
+
+            <!-- SECTION 4: MINI ALBUM HÌNH ẢNH -->
+            <section class="sec-gallery">
+                <div class="gallery-header-decor">
+                    <span>WELCOME</span>
+                    <span>TO</span>
+                    <span>WEDDING</span>
+                </div>
+
+                <!-- Container filmstrip: tọa độ tính từ cinelove template (500.8×900.767px) -->
+                <div class="gallery-frames-list">
+                    <div class="gallery-photo-item gallery-frame-1">
+                        <img src="" id="gallery-img-1" alt="Wedding Moment 1">
+                        <div class="gallery-photo-caption" id="gallery-poem-1"></div>
+                    </div>
+                    <div class="gallery-photo-item gallery-frame-2">
+                        <img src="" id="gallery-img-2" alt="Wedding Moment 2">
+                        <div class="gallery-photo-caption" id="gallery-poem-2"></div>
+                    </div>
+                    <div class="gallery-photo-item gallery-frame-3">
+                        <img src="" id="gallery-img-3" alt="Wedding Moment 3">
+                        <div class="gallery-photo-caption" id="gallery-poem-3"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECTION 4.5: BỐ CỤC ẢNH ĐẶC BIỆT + COUNTDOWN -->
+            <section class="sec-sub-gallery">
+
+                <!-- 1. Đếm ngược nền đen - ngay dưới gallery -->
+                <div class="sub-gallery-countdown-banner">
+                    <div class="countdown-container">
+                        <div class="countdown-box"><span class="num" id="days">00</span><span class="label">ngày</span>
+                        </div>
+                        <div class="countdown-box"><span class="num" id="hours">00</span><span class="label">giờ</span>
+                        </div>
+                        <div class="countdown-box"><span class="num" id="minutes">00</span><span
+                                class="label">phút</span></div>
+                        <div class="countdown-box"><span class="num" id="seconds">00</span><span
+                                class="label">giây</span></div>
+                    </div>
+                </div>
+
+                <!-- 2. Text title trên ảnh -->
+                <div class="sub-gallery-text-top">
+                    <div class="sub-gallery-title" id="countdown-title-text"></div>
+                </div>
+
+                <!-- 3. Bố cục ảnh đặc biệt -->
+                <div class="sub-gallery-composite">
+                    <div class="sub-gallery-sidebar">
+                        <span class="sidebar-text sidebar-love">MY LOVE</span>
+                        <span class="sidebar-text sidebar-forever">FOREVER</span>
+                    </div>
+                    <div class="sub-gallery-main-photo">
+                        <img src="" id="sub-gallery-photo-img" alt="Wedding Photo">
+                    </div>
+                    <div class="sub-gallery-cutout">
+                        <img src="./assets/transparent-bg.png" alt="Couple Cutout">
+                    </div>
+
+                    <!-- 4. Text dưới ảnh: I LOVE YOU + post text -->
+                    <div class="sub-gallery-text-bottom">
+                        <img src="" id="sub-gallery-love-img" class="sub-gallery-love-img" alt="I Love You">
+                        <div class="sub-gallery-post-text" id="countdown-post-text"></div>
+                    </div>
+                </div>
+
+                <!-- 5. Thêm 2 ảnh phụ và text bar -->
+                <div class="sub-gallery-extra">
+                    <img src="" id="sub-gallery-extra-1" class="extra-photo" alt="Extra Photo 1">
+                    <div class="extra-text-bar">
+                        <span>FALL IN</span>
+                        <span>LOVE</span>
+                        <span>WEDDING</span>
+                    </div>
+                    <img src="" id="sub-gallery-extra-2" class="extra-photo" alt="Extra Photo 2">
+                </div>
+
+            </section>
+
+            <!-- SECTION 6: LỊCH ĐÁM CƯỚI -->
+            <section class="sec-calendar">
+                <!-- Icon trái tim phía trên cùng -->
+                <div class="calendar-heart-icon">
+                    <i class="fa fa-heart"></i>
+                </div>
+
+                <!-- Chữ Save The Date -->
+                <img src="" id="calendar-top-img" class="save-the-date-img" alt="Save the Date">
+
+                <!-- Câu intro phía dưới chữ -->
+                <div class="calendar-intro-text" id="calendar-intro-text"></div>
+
+                <!-- Khung polaroid chứa ảnh và lịch -->
+                <div class="calendar-polaroid-container">
+                    <img src="" id="calendar-polaroid-photo" class="polaroid-photo" alt="Couple Photo">
+                    <img src="" id="calendar-polaroid-frame" class="polaroid-frame" alt="Polaroid Frame">
+                    
+                    <!-- Lưới lịch tĩnh cho Tháng 05/2050 (ngày cưới 22) -->
+                    <!-- Lưu ý: Grid có thể được sinh động bằng JS, nhưng đang giữ tĩnh theo design -->
+                    <div class="calendar-grid overlay-calendar">
+                        <div class="day-header">CN</div>
+                        <div class="day-header">T2</div>
+                        <div class="day-header">T3</div>
+                        <div class="day-header">T4</div>
+                        <div class="day-header">T5</div>
+                        <div class="day-header">T6</div>
+                        <div class="day-header">T7</div>
+                        <div>1</div>
+                        <div>2</div>
+                        <div>3</div>
+                        <div>4</div>
+                        <div>5</div>
+                        <div>6</div>
+                        <div>7</div>
+                        <div>8</div>
+                        <div>9</div>
+                        <div>10</div>
+                        <div>11</div>
+                        <div>12</div>
+                        <div>13</div>
+                        <div>14</div>
+                        <div>15</div>
+                        <div>16</div>
+                        <div>17</div>
+                        <div>18</div>
+                        <div>19</div>
+                        <div>20</div>
+                        <div>21</div>
+                        <div>22</div>
+                        <div>23</div>
+                        <div>24</div>
+                        <div>25</div>
+                        <div>26</div>
+                        <div>27</div>
+                        <div>28</div>
+                        <div>29</div>
+                        <div>30</div>
+                        <div>31</div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                    </div>
+
+                    <!-- Text phần dưới tối màu của frame polaroid -->
+                    <div class="polaroid-bottom-text" id="calendar-polaroid-text"></div>
+                </div>
+
+                <!-- Câu quote dưới cùng -->
+                <div class="bottom-quote" id="calendar-quote-text"></div>
+            </section>
+
+            <!-- SECTION 7: BIỂU MẪU RSVP (XÁC NHẬN THAM DỰ) -->
+            <section class="sec-rsvp">
+                <div class="rsvp-card">
+                    <h3 id="rsvp-card-title"></h3>
+                    <form id="rsvpForm" onsubmit="handleRSVP(event)">
+                        <div class="form-group">
+                            <label for="rsvp-name" id="rsvp-label-name"></label>
+                            <input type="text" id="rsvp-name" required>
+                        </div>
+                        <div class="form-group">
+                            <label id="rsvp-label-attendance"></label>
+                            <div class="radio-group">
+                                <label class="radio-label"><input type="radio" name="attendance" value="yes"
+                                        checked><span id="rsvp-text-yes"></span></label>
+                                <label class="radio-label"><input type="radio" name="attendance" value="no"><span
+                                        id="rsvp-text-no"></span></label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="rsvp-count" id="rsvp-label-count"></label>
+                            <select id="rsvp-count">
+                                <option value="1">1 người</option>
+                                <option value="2">2 người</option>
+                                <option value="3">3 người</option>
+                                <option value="4">4 người</option>
+                                <option value="5">5+ người</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn-submit" id="rsvp-btn-text"></button>
+                    </form>
+                </div>
+
+                <p id="rsvp-quote-text"
+                    style="margin-top: 35px; padding: 0 10px; font-family: 'Playfair Display', serif; font-size: 15px; color:#555; line-height: 1.6;">
+                </p>
+            </section>
+
+            <!-- SECTION 8: HỘP QUÀ CƯỚI -->
+            <section class="sec-registry">
+                <h3 id="registry-title-text"></h3>
+                <div class="qr-box"></div>
+                <img src="" id="registry-character-icon" style="width: 80px; margin: 0 auto; display: block;"
+                    alt="Wedding character icon">
+                <img src="" class="footer-banner" alt="Footer branch banner">
+            </section>
+        </div>
+    </div>
+
+    <!-- TẢI CÁC FILE SCRIPT -->
+    <script src="constants.js"></script>
+    <script src="js/data-loader.js" defer></script>
+    <script src="js/envelope.js" defer></script>
+    <script src="js/countdown.js" defer></script>
+    <script src="js/rsvp.js" defer></script>
+</body>
+
+</html>
