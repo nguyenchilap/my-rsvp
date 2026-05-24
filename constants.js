@@ -61,7 +61,7 @@ const WEDDING_DATA = {
         title: "Save the Date",
         tapHint: "Chạm để mở thiệp",
         preGuestText: "TRÂN TRỌNG KÍNH MỜI",
-        envelopeImage: './assets/envelope.jpg'
+        envelopeImage: './assets/envelope.JPG'
     },
 
     // ----------------------------------------------------
@@ -108,7 +108,7 @@ Rất mong sớm được đón tiếp Chị! ❤️”`
     // ----------------------------------------------------
     couple: {
         // Ảnh nền ngang của cặp đôi ở đầu phần giới thiệu
-        bannerImg: "./assets/couple-banner.jpg",
+        bannerImg: "./assets/couple-banner.JPG",
 
         // Châm ngôn tiếng Anh hiển thị dưới ảnh nền ngang
         quoteEn: "I met you on my way back home, I felt in love as sky were gray",
@@ -117,14 +117,14 @@ Rất mong sớm được đón tiếp Chị! ❤️”`
         groom: {
             name: "Chí Lập",
             role: "Groom",
-            image: "./assets/groom.jpg"
+            image: "./assets/groom.JPG"
         },
 
         // Thông tin cô dâu
         bride: {
             name: "Quế Anh",
             role: "Bride",
-            image: "./assets/bride.jpg"
+            image: "./assets/bride.JPG"
         },
 
         // Câu thơ/quote lãng mạn (hỗ trợ các thẻ <br> để xuống dòng)
@@ -144,9 +144,9 @@ Rất mong sớm được đón tiếp Chị! ❤️”`
 
         // Danh sách liên kết hình ảnh trong lưới album (grid)
         images: [
-            "./assets/gallery-1.jpg",
-            "./assets/gallery-2.jpg",
-            "./assets/gallery-3.jpg"
+            "./assets/gallery-1.JPG",
+            "./assets/gallery-2.JPG",
+            "./assets/gallery-3.JPG"
         ],
 
         // Khung chữ chèn dưới phần Album hình ảnh
@@ -162,11 +162,11 @@ Rất mong sớm được đón tiếp Chị! ❤️”`
     // ----------------------------------------------------
     subGallery: {
         // Ảnh chính cho section bố cục đặc biệt (phía dưới gallery filmstrip)
-        specialPhoto: "./assets/sub-gallery-1.jpg",
+        specialPhoto: "./assets/sub-gallery-1.JPG",
 
         // 2 Ảnh bổ sung bên dưới
-        extraPhoto1: "./assets/sub-gallery-2.jpg",
-        extraPhoto2: "./assets/sub-gallery-3.jpg",
+        extraPhoto1: "./assets/sub-gallery-2.JPG",
+        extraPhoto2: "./assets/sub-gallery-3.JPG",
 
         // Ảnh chữ I LOVE YOU
         loveImg: "https://assets.cinelove.me/templates/assets/0189eb35-5cf1-4525-a8d0-867f70e0bf67/b298e6ad-dd15-475c-aca4-c3f0850f44fc.png"
@@ -200,7 +200,7 @@ Rất mong sớm được đón tiếp Chị! ❤️”`
         polaroidFrame: "https://assets.cinelove.me/templates/assets/0189eb35-5cf1-4525-a8d0-867f70e0bf67/66d12607-1554-4e57-b216-4f105da70233.png",
 
         // Ảnh của couple nằm dưới khung polaroid
-        photo: "./assets/gallery-1.jpg",
+        photo: "./assets/gallery-1.JPG",
 
         // Text ngày tháng nằm ở phần đuôi tối màu của khung polaroid
         polaroidText: "Thứ Bảy, 22/05/2050<br>Âm lịch 22/4 | 12:00 PM",
