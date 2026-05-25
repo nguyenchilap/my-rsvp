@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Wedding</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body { background-color: #f8f9fa; }
+        .card-summary { text-align: center; padding: 20px; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
+        .stat-number { font-size: 2.2rem; font-weight: bold; color: #94745c; }
+        .table-responsive { background: #fff; padding: 20px; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
+        
+        .nav-pills .nav-link.active, .nav-pills .show>.nav-link {
+            color: #fff;
+            background-color: #94745c;
+        }
+        .nav-link { color: #555; font-weight: 500; }
+        .nav-link:hover { color: #94745c; }
+        
+        #app-content { display: none; }
+        
+        .badge-success { background-color: #198754; color: white; padding: 5px 10px; border-radius: 20px; font-size: 0.85em; }
+        .badge-warning { background-color: #ffc107; color: black; padding: 5px 10px; border-radius: 20px; font-size: 0.85em; }
+        .badge-danger { background-color: #dc3545; color: white; padding: 5px 10px; border-radius: 20px; font-size: 0.85em; }
+        .badge-secondary { background-color: #6c757d; color: white; padding: 5px 10px; border-radius: 20px; font-size: 0.85em; }
+
+        /* Login Screen */
+        #login-screen {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: #f8f9fa;
+        }
+        .login-box {
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            text-align: center;
+            max-width: 400px;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <!-- Login Screen -->
+    <div id="login-screen">
+        <div class="login-box">
+            <h2 style="color: #94745c; font-weight: bold; margin-bottom: 30px;">Admin Login</h2>
+            <p class="text-muted mb-4">Vui lòng đăng nhập bằng tài khoản được cấp quyền để truy cập trang quản trị.</p>
+            <button id="btn-google-login" class="btn btn-primary w-100 py-2 d-flex align-items-center justify-content-center gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-google" viewBox="0 0 16 16">
+                    <path d="M15.545 6.558a9.4 9.4 0 0 1 .139 1.626c0 2.434-.87 4.492-2.384 5.885h.002C11.978 15.292 10.158 16 8 16A8 8 0 1 1 8 0a7.7 7.7 0 0 1 5.352 2.082l-2.284 2.284A4.35 4.35 0 0 0 8 3.166c-2.087 0-3.86 1.408-4.492 3.304a4.8 4.8 0 0 0 0 3.063h.003c.635 1.893 2.405 3.301 4.492 3.301 1.078 0 2.004-.276 2.722-.764h-.003a3.7 3.7 0 0 0 1.599-2.431H8v-3.08h7.545z"/>
+                </svg>
+                Đăng nhập với Google
+            </button>
+            <div id="login-error" class="text-danger mt-3" style="display: none; font-size: 0.9em;"></div>
+        </div>
+    </div>
+
+    <!-- Dashboard Content -->
+    <div id="app-content" class="container py-5">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2 style="color: #94745c; font-weight: bold; margin: 0;">Dashboard Đám Cưới</h2>
+            <div>
+                <span id="admin-email" class="text-muted me-3"></span>
+                <button id="btn-logout" class="btn btn-outline-secondary btn-sm">Đăng xuất</button>
+            </div>
+        </div>
+        
+        <!-- Summary Section -->
+        <div class="row mb-5 g-4">
+            <div class="col-md-3">
+                <div class="card card-summary bg-white border-0">
+                    <div class="text-muted mb-2">Tổng số lời chúc</div>
+                    <div class="stat-number" id="stat-wishes">0</div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card card-summary bg-white border-0">
+                    <div class="text-muted mb-2">Khách xác nhận Đi</div>
+                    <div class="stat-number" id="stat-attending-groups">0</div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card card-summary bg-white border-0">
+                    <div class="text-muted mb-2">Tổng số người (Đi)</div>
+                    <div class="stat-number" id="stat-total-guests">0</div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card card-summary bg-white border-0">
+                    <div class="text-muted mb-2">Khách Không đi</div>
+                    <div class="stat-number" id="stat-not-attending">0</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation Tabs -->
+        <ul class="nav nav-pills mb-4" id="adminTabs" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="wishes-tab" data-bs-toggle="pill" data-bs-target="#wishes-pane" type="button" role="tab">Quản lý Lời chúc</button>
+            </li>
+            <li class="nav-item ms-2" role="presentation">
+                <button class="nav-link" id="rsvps-tab" data-bs-toggle="pill" data-bs-target="#rsvps-pane" type="button" role="tab">Danh sách RSVP</button>
+            </li>
+        </ul>
+
+        <!-- Tab Contents -->
+        <div class="tab-content" id="adminTabsContent">
+            <!-- Wishes Tab -->
+            <div class="tab-pane fade show active" id="wishes-pane" role="tabpanel">
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle">
+                        <thead class="table-light">
+                            <tr>
+                                <th style="width: 15%">Thời gian</th>
+                                <th style="width: 15%">Người gửi</th>
+                                <th style="width: 40%">Lời chúc</th>
+                                <th style="width: 15%">Trạng thái</th>
+                                <th style="width: 15%">Thao tác</th>
+                            </tr>
+                        </thead>
+                        <tbody id="wishes-table-body">
+                            <tr><td colspan="5" class="text-center text-muted">Đang tải dữ liệu...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- RSVPs Tab -->
+            <div class="tab-pane fade" id="rsvps-pane" role="tabpanel">
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle">
+                        <thead class="table-light">
+                            <tr>
+                                <th>Thời gian</th>
+                                <th>Khách mời</th>
+                                <th>Tham gia</th>
+                                <th>Số lượng người</th>
+                                <th>Thao tác</th>
+                            </tr>
+                        </thead>
+                        <tbody id="rsvps-table-body">
+                            <tr><td colspan="5" class="text-center text-muted">Đang tải dữ liệu...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Admin Logic -->
+    <script src="./js/admin.js"></script>
+</body>
+</html>

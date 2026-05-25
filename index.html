@@ -13,6 +13,10 @@
         href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Quicksand:wght@400;500;600;700&family=Great+Vibes&display=swap"
         rel="stylesheet">
 
+    <!-- Firebase Compat SDK (dùng qua window.firebase, không cần HTTP server) -->
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+
     <!-- Stylesheet ngoài -->
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="animations.css">
@@ -33,8 +37,36 @@
         <div id="music-trigger" class="playing" onclick="toggleMusic()">
             <div id="music-icon" class="playing" alt="Music Control">
                 <svg viewBox="0 0 24 24" width="18" height="18" fill="var(--primary-color)">
-                    <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/>
+                    <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z" />
                 </svg>
+            </div>
+        </div>
+
+        <!-- Nút Xem lời chúc (nổi) -->
+        <div id="wishes-trigger" onclick="openWishesSheet()">
+            <div class="inner-circle">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="#94745c">
+                    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                </svg>
+            </div>
+            <div class="wishes-tooltip" id="wishes-tooltip">Vừa có lời chúc mới !</div>
+        </div>
+
+        <!-- BOTTOM SHEET XEM LỜI CHÚC -->
+        <div id="wishes-sheet-overlay" onclick="closeWishesSheet()"></div>
+        <div id="wishes-sheet">
+            <div id="floating-hearts-container" class="floating-hearts-container"></div>
+            <div class="wishes-sheet-header">
+                <h3>Sổ lưu bút</h3>
+                <button class="wishes-sheet-close" onclick="closeWishesSheet()">
+                    <svg viewBox="0 0 24 24" width="24" height="24" fill="#333">
+                        <path
+                            d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" />
+                    </svg>
+                </button>
+            </div>
+            <div class="wishes-sheet-content" id="wishes-sheet-content">
+                <div style="text-align:center; padding:20px; color:#666;">Đang tải...</div>
             </div>
         </div>
 
@@ -317,28 +349,79 @@
                 </div>
             </section>
 
+            <!-- SECTION 6.8: GỬI LỜI CHÚC -->
+            <section class="sec-wishes fade-in" style="padding-bottom: 0;">
+                <div class="rsvp-card fade-up">
+                    <h3 id="wishes-card-title">Gửi lời chúc</h3>
+                    <form id="wishesForm">
+                        <div class="form-group">
+                            <label for="wishes-name" id="wishes-label-name">Tên của bạn</label>
+                            <input type="text" id="wishes-name" placeholder="Nhập tên của bạn" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="wishes-message" id="wishes-label-message">Lời chúc</label>
+                            <textarea id="wishes-message" placeholder="Nhập lời chúc của bạn..." rows="4"
+                                required></textarea>
+                        </div>
+                        <button type="submit" class="btn-submit" id="wishes-btn-text">GỬI LỜI CHÚC</button>
+                    </form>
+
+                    <div id="wishes-success-message" style="display: none; text-align: center; padding: 12px 0 20px;">
+                        <svg viewBox="0 0 24 24" width="60" height="60" fill="none" stroke="#4caf50" stroke-width="2.5"
+                            stroke-linecap="round" stroke-linejoin="round"
+                            style="margin-bottom: 20px; display: inline-block;">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <polyline points="8 12 11 15 16 9"></polyline>
+                        </svg>
+                        <div id="wishes-success-text"
+                            style="color: #4caf50; font-size: 16px; font-weight: 500; font-family: 'Quicksand', sans-serif;">
+                            Cảm ơn bạn đã gửi lời chúc!</div>
+                        <button type="button" class="btn-submit"
+                            style="margin-top: 20px; background-color: var(--accent-color);"
+                            onclick="openWishesSheet()">XEM LỜI CHÚC</button>
+                    </div>
+                </div>
+            </section>
+
             <!-- SECTION 7: HỘP QUÀ CƯỚI -->
             <section class="sec-registry fade-up">
                 <div class="registry-heart-icon">
-                    <svg viewBox="0 0 24 24" width="24" height="24" fill="#bfa37c">
+                    <svg viewBox="0 0 24 24" width="36" height="36" fill="#bfa37c">
                         <path
                             d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
                     </svg>
                 </div>
 
-                <div class="animated-gift-box" onclick="document.querySelector('.qr-box').classList.toggle('show-qr')">
-                    <img src="./assets/gift-box.png" class="gift-img" alt="Gift Box">
+                <div class="gift-container" id="gift-container"
+                    onclick="this.style.display='none'; document.getElementById('qr-box').classList.add('show-qr'); document.getElementById('bank-info-container').classList.add('show-bank-info');">
+                    <div class="gift-tap-hint">Chạm để mở</div>
+                    <div class="animated-gift-box" style="margin-bottom: 0;">
+                        <img src="./assets/gift-box.png" class="gift-img" alt="Gift Box">
+                    </div>
                 </div>
 
                 <h3 id="registry-title-text" class="registry-title"></h3>
-                <div class="qr-box"></div>
+                <div class="qr-box" id="qr-box" style="background-image: none !important;">
+                    <div style="width: 100%; aspect-ratio: 1 / 1; overflow: hidden; position: relative;">
+                        <img src="https://img.vietqr.io/image/vietinbank-107871428678-compact.png?accountName=NGUYEN_NGOC_QUE_ANH"
+                            style="width: 100%; height: auto; display: block;" alt="Mã QR">
+                    </div>
+                </div>
+
+                <div id="bank-info-container" class="bank-info-container">
+                    <div class="bank-name">NGUYEN NGOC QUE ANH</div>
+                    <div class="bank-number">107871428678</div>
+                </div>
+
+                <div class="registry-hint">Dành cho những vị khách quý muốn gửi trao món quà chúc phúc nhưng không thể
+                    đến chung vui cùng gia đình. 💗</div>
             </section>
 
             <!-- SECTION 8: BIỂU MẪU RSVP (XÁC NHẬN THAM DỰ) -->
             <section class="sec-rsvp fade-in">
                 <div class="rsvp-card fade-up">
                     <h3 id="rsvp-card-title"></h3>
-                    <form id="rsvpForm" onsubmit="handleRSVP(event)">
+                    <form id="rsvpForm">
                         <div class="form-group">
                             <label for="rsvp-name" id="rsvp-label-name"></label>
                             <input type="text" id="rsvp-name" required>
@@ -352,7 +435,7 @@
                                         id="rsvp-text-no"></span></label>
                             </div>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group" id="guest-count-group">
                             <label for="rsvp-count" id="rsvp-label-count"></label>
                             <select id="rsvp-count">
                                 <option value="1">1 người</option>
@@ -364,10 +447,25 @@
                         </div>
                         <button type="submit" class="btn-submit" id="rsvp-btn-text"></button>
                     </form>
+
+                    <div id="rsvp-success-message" style="display: none; text-align: center; padding: 40px 0 20px;">
+                        <svg viewBox="0 0 24 24" width="60" height="60" fill="none" stroke="#4caf50" stroke-width="2.5"
+                            stroke-linecap="round" stroke-linejoin="round"
+                            style="margin-bottom: 20px; display: inline-block;">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <polyline points="8 12 11 15 16 9"></polyline>
+                        </svg>
+                        <div id="rsvp-success-text"
+                            style="color: #4caf50; font-size: 16px; font-weight: 500; font-family: 'Quicksand', sans-serif;">
+                            Cảm ơn đã xác nhận!</div>
+                    </div>
                 </div>
 
                 <img src="" id="registry-character-icon" class="registry-character-icon" alt="Wedding character icon">
-                <img src="" class="footer-banner" alt="Footer branch banner">
+
+                <div class="footer-banner">
+                    <img src="" alt="Footer branch banner">
+                </div>
             </section>
         </div>
     </div>
@@ -378,6 +476,7 @@
     <script src="js/envelope.js" defer></script>
     <script src="js/countdown.js" defer></script>
     <script src="js/rsvp.js" defer></script>
+    <script src="js/wishes.js" defer></script>
 </body>
 
 </html>

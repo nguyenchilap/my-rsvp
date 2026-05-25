@@ -43,12 +43,18 @@ function getGuestInfo() {
         const fullName = decodeURIComponent(toParam).trim();
         const words = fullName.split(" ");
         const firstWord = words[0].toLowerCase();
-        const validPrefixes = ["anh", "chị", "cô", "bác", "chú", "dì", "ông", "bà", "bạn", "em", "cháu"];
+        const validPrefixes = ["anh", "chị", "cô", "bác", "chú", "dì", "ông", "bà", "bạn", "em", "cháu", "bé"];
 
         let inferredPrefix = "";
         let inferredName = fullName;
 
-        if (validPrefixes.includes(firstWord)) {
+        if (firstWord === "gia" && words[1]?.toLowerCase() === "đình") {
+            inferredPrefix = "Gia đình";
+            inferredName = words.slice(2).join(" ");
+        } else if (firstWord === "vợ" && words[1]?.toLowerCase() === "chồng" && validPrefixes.includes(words[2]?.toLowerCase())) {
+            inferredPrefix = "Vợ chồng " + words[2].charAt(0).toUpperCase() + words[2].slice(1).toLowerCase();
+            inferredName = words.slice(3).join(" ");
+        } else if (validPrefixes.includes(firstWord)) {
             inferredPrefix = words[0];
             inferredName = words.slice(1).join(" ");
         }
@@ -75,7 +81,12 @@ function getCouplePronoun(prefix) {
     if (!prefix) {
         return WEDDING_DATA.couplePronounMap ? WEDDING_DATA.couplePronounMap["default"] || "Chúng mình" : "Chúng mình";
     }
-    const cleanPrefix = prefix.toLowerCase().trim();
+    let cleanPrefix = prefix.toLowerCase().trim();
+
+    if (cleanPrefix.startsWith("vợ chồng ")) {
+        cleanPrefix = cleanPrefix.replace("vợ chồng ", "").trim();
+    }
+
     if (WEDDING_DATA.couplePronounMap && WEDDING_DATA.couplePronounMap[cleanPrefix]) {
         return WEDDING_DATA.couplePronounMap[cleanPrefix];
     }
@@ -113,16 +124,32 @@ function initWeddingData() {
             .replace(/(?<=[\s,!.?“])chị(?=[\s,!.?”]|$)/g, guestPronoun.toLowerCase());
     }
 
-    // Thay thế tên khách mời vào lời ngỏ tâm thư và cập nhật danh xưng
-    let quoteContent = replacePronoun(WEDDING_DATA.quote.content);
-    quoteContent = replaceGuestPronoun(quoteContent);
-    const defaultNamePattern = new RegExp(WEDDING_DATA.intro.defaultGuestName, 'g');
-    quoteContent = quoteContent.replace(defaultNamePattern, guestName);
-
-    // Đồng thời cập nhật câu chào "Thân gửi..."
-    if (window.location.search.includes('to=') || window.location.search.includes('name=')) {
-        quoteContent = quoteContent.replace(/Thân gửi [^,\n]+/g, "Thân gửi " + guestName);
+    // Thay thế tên khách mời vào lời ngỏ tâm thư và cập nhật danh xưng dựa vào đại từ
+    let cleanPrefix = prefix ? prefix.toLowerCase().trim() : "";
+    if (cleanPrefix.startsWith("vợ chồng ")) {
+        cleanPrefix = cleanPrefix.replace("vợ chồng ", "").trim();
     }
+
+    let quoteTemplate = WEDDING_DATA.quote.defaultContent || "";
+
+    if (["anh", "chị"].includes(cleanPrefix)) {
+        quoteTemplate = WEDDING_DATA.quote.contentAnhChi || quoteTemplate;
+    } else if (["em", "bé"].includes(cleanPrefix)) {
+        quoteTemplate = WEDDING_DATA.quote.contentEmBe || quoteTemplate;
+    } else if (["cô", "bác", "chú", "dì", "cậu", "mợ", "ông", "bà"].includes(cleanPrefix)) {
+        quoteTemplate = WEDDING_DATA.quote.contentNguoiLon || quoteTemplate;
+    } else if (["bạn"].includes(cleanPrefix)) {
+        quoteTemplate = WEDDING_DATA.quote.contentBan || quoteTemplate;
+    }
+
+    let displayPrefix = prefix ? (prefix.charAt(0).toUpperCase() + prefix.slice(1).toLowerCase()) : "Bạn";
+    if (prefix && prefix.toLowerCase().trim().startsWith("vợ chồng")) {
+        displayPrefix = prefix.charAt(0).toUpperCase() + prefix.slice(1).toLowerCase();
+    }
+
+    let quoteContent = quoteTemplate
+        .replace(/{fullName}/g, guestName || "Bạn")
+        .replace(/{prefix}/g, displayPrefix);
 
     // Thiết lập các thuộc tính CSS Custom Properties (CSS variables)
     document.documentElement.style.setProperty('--wax-seal-url', `url('${WEDDING_DATA.decorations.waxSeal}')`);
@@ -144,7 +171,7 @@ function initWeddingData() {
     setElementSrc('#countdown-branch', WEDDING_DATA.decorations.branchIcon);
     setElementSrc('#calendar-top-img', WEDDING_DATA.calendar.topImage);
     setElementSrc('#registry-character-icon', WEDDING_DATA.decorations.characterIcon);
-    setElementSrc('.footer-banner', WEDDING_DATA.decorations.footerBanner);
+    setElementSrc('.footer-banner img', WEDDING_DATA.decorations.footerBanner);
     setElementSrc('#envelope-card-img', WEDDING_DATA.envelope.envelopeImage);
 
     // QR Code Hộp Quà Cưới
@@ -169,13 +196,21 @@ function initWeddingData() {
     setElementHtml('#invitation-message', replacePronoun(WEDDING_DATA.intro.invitationMessage));
     setElementText('.time-highlight', WEDDING_DATA.intro.timeHighlight);
     setElementText('.lunar-time', WEDDING_DATA.intro.lunarTime);
-    setElementText('.location-title', WEDDING_DATA.intro.locationTitle);
-    setElementText('.location-name', WEDDING_DATA.intro.locationName);
-    setElementText('.location-address', WEDDING_DATA.intro.locationAddress);
+    // Xác định địa điểm dựa vào tham số location trên URL, mặc định là 2 (Nhà gái)
+    const urlParamsLocation = new URLSearchParams(window.location.search);
+    let locationParam = urlParamsLocation.get('location');
+    if (!locationParam || !WEDDING_DATA.intro.locations[locationParam]) {
+        locationParam = "2";
+    }
+    const locationData = WEDDING_DATA.intro.locations[locationParam];
+
+    setElementText('.location-title', locationData.title);
+    setElementText('.location-name', locationData.name);
+    setElementText('.location-address', locationData.address);
 
     const mapsBtn = document.querySelector('.sec-intro .btn-action');
     if (mapsBtn) {
-        mapsBtn.href = WEDDING_DATA.intro.mapsLink;
+        mapsBtn.href = locationData.mapsLink;
     }
 
     // --- MAPPING NỘI DUNG LỜI NGỎ ---
@@ -297,7 +332,7 @@ function setupCalendarHighlight() {
 // --- ANIMATION OBSERVER ---
 document.addEventListener("DOMContentLoaded", () => {
     const animatedElements = document.querySelectorAll('.envelope-header, .couple-header-decor, .gallery-header-decor, .extra-text-bar, .sweet-wedding-header, .fade-up, .fade-in, .zoom-in, .fade-in-left, .fade-in-right');
-    
+
     if ('IntersectionObserver' in window) {
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {

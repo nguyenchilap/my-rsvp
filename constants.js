@@ -18,6 +18,8 @@ const WEDDING_DATA = {
         "dì": "Chúng con",
         "ông": "Chúng con",
         "bà": "Chúng con",
+        "em": "Anh chị",
+        "bé": "Anh chị",
         "default": "Chúng con"
     },
 
@@ -81,26 +83,73 @@ const WEDDING_DATA = {
         timeHighlight: "11 GIỜ 00 | THỨ SÁU | 17.07.2026",
         lunarTime: "(Nhằm ngày 04 tháng 06 năm Bính Ngọ)",
 
-        locationTitle: "HÔN LỄ ĐƯỢC CỬ HÀNH TẠI",
-        locationName: "TƯ GIA NHÀ GÁI",
-        locationAddress: "111 Bùi Thị Xuân, Thuận Hóa, Thành phố Huế",
-
-        // Đường dẫn Google Maps để khách tìm đường đi
-        mapsLink: "https://maps.google.com/?q=111+Bùi+Thị+Xuân,+Thuận+Hóa,+Thành+phố+Huế"
+        // Cấu hình các địa điểm tổ chức theo tham số location trên URL (?location=1/2/3)
+        locations: {
+            "1": {
+                title: "HÔN LỄ ĐƯỢC CỬ HÀNH TẠI",
+                name: "TƯ GIA NHÀ TRAI",
+                address: "410 Chi Lăng, phường Phú Xuân, Thành phố Huế",
+                mapsLink: "https://maps.app.goo.gl/wRLd1W5tJzFveaZF8"
+            },
+            "2": {
+                title: "HÔN LỄ ĐƯỢC CỬ HÀNH TẠI",
+                name: "TƯ GIA NHÀ GÁI",
+                address: "111 Bùi Thị Xuân, phường Thuận Hóa, Thành phố Huế",
+                mapsLink: "https://maps.app.goo.gl/oYKAc2EWLEHWHrnM9"
+            },
+            "3": {
+                title: "ĐỊA ĐIỂM TỔ CHỨC TIỆC CƯỚI",
+                name: "ASIA PALACE",
+                address: "32 Phạm Ngũ Lão, phường Thuận Hóa, Thành phố Huế",
+                mapsLink: "https://maps.app.goo.gl/zgKDTsa7vhsgbC1o7"
+            }
+        }
     },
 
     // ----------------------------------------------------
     // 3. LỜI NGỎ YÊU THƯƠNG (QUOTE SECTION)
     // ----------------------------------------------------
     quote: {
-        // Hỗ trợ ký tự xuống dòng thoải mái nhờ cú pháp string literal (dấu nháy huyền ` `)
-        content: `“Thân gửi Chị Nga,
+        contentAnhChi: `“Trân trọng gửi đến {fullName},
 
-Trải qua một hành trình dài gắn bó, chúng mình sẽ chính thức bước sang một trang mới của cuộc đời. Vì Chị luôn là một người đặc biệt và trân quý, chúng mình mong muốn được chia sẻ niềm vui lớn lao này cùng Chị.
+Để đánh dấu cột mốc quan trọng nhất trong cuộc đời, chúng em trân trọng gửi lời mời đến {prefix} cùng gia đình đến dự buổi tiệc chung vui và chứng kiến khoảnh khắc hai đứa chính thức về chung một nhà.
 
-Trân trọng kính mời Chị cùng người thương đến dự buổi tiệc chung vui cùng gia đình chúng mình. Sự hiện diện và lời chúc phúc của Chị chắc chắn sẽ làm cho ngày vui của hai đứa thêm phần trọn vẹn và ý nghĩa.
+Sự hiện diện của {prefix} là niềm vinh hạnh và là món quà tinh thần vô giá dành cho chúng em. Chúng em rất mong được đón tiếp {prefix} trong ngày vui sắp tới.
 
-Rất mong sớm được đón tiếp Chị! ❤️”`
+Trân trọng! ❤️”`,
+
+        contentEmBe: `“Thương gửi {fullName},
+
+Để đánh dấu cột mốc quan trọng nhất trong cuộc đời, anh chị gửi lời mời đến {prefix} cùng gia đình/người thương đến dự buổi tiệc chung vui và chứng kiến khoảnh khắc hai người chính thức về chung một nhà.
+
+Sự hiện diện của {prefix} là niềm vui và là món quà tinh thần vô giá dành cho anh chị. Anh chị rất mong được đón tiếp {prefix} trong ngày vui sắp tới.
+
+Thân mến! ❤️”`,
+
+        contentNguoiLon: `“Kính gửi {fullName},
+
+Để đánh dấu cột mốc quan trọng nhất trong cuộc đời, chúng con trân trọng kính mời {prefix} cùng gia đình đến dự buổi tiệc chung vui và chứng kiến khoảnh khắc hai đứa chính thức về chung một nhà.
+
+Sự hiện diện của {prefix} là niềm vinh hạnh và là lời chúc phúc vô giá dành cho chúng con. Chúng con rất mong được đón tiếp {prefix} trong ngày vui sắp tới.
+
+Chúng con trân trọng kính mời! ❤️”`,
+
+        contentBan: `“Thân gửi {fullName},
+
+Để đánh dấu cột mốc quan trọng nhất trong cuộc đời, chúng mình trân trọng gửi lời mời đến {prefix} cùng gia đình/người thương đến dự buổi tiệc chung vui và chứng kiến khoảnh khắc hai đứa chính thức về chung một nhà.
+
+Sự hiện diện của {prefix} là niềm vinh hạnh và là món quà tinh thần vô giá dành cho chúng mình. Chúng mình rất mong được đón tiếp {prefix} trong ngày vui sắp tới.
+
+Thân mến! ❤️”`,
+
+        // Dành cho mặc định hoặc các trường hợp khác
+        defaultContent: `“Thân gửi {fullName},
+
+Trải qua một hành trình dài gắn bó, chúng mình sẽ chính thức bước sang một trang mới của cuộc đời. Vì {prefix} luôn là một người đặc biệt và trân quý, chúng mình mong muốn được chia sẻ niềm vui lớn lao này cùng {prefix}.
+
+Trân trọng kính mời {prefix} cùng người thương đến dự buổi tiệc chung vui cùng gia đình chúng mình. Sự hiện diện và lời chúc phúc của {prefix} chắc chắn sẽ làm cho ngày vui của hai đứa thêm phần trọn vẹn và ý nghĩa.
+
+Rất mong sớm được đón tiếp {prefix}! ❤️”`
     },
 
     // ----------------------------------------------------

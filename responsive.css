@@ -7,4 +7,42 @@
     #music-trigger {
         right: 5%;
     }
+
+    #wishes-trigger {
+        right: 5%;
+    }
+}
+
+@media (min-width: 451px) and (max-width: 500px) {
+    .wrapper {
+        overflow: hidden;
+    }
+
+    #music-trigger {
+        right: 5%;
+    }
+
+    #wishes-trigger {
+        right: 5%;
+    }
+}
+
+@media (min-width: 501px) and (max-width: 1000px) {
+    #music-trigger {
+        right: 5%;
+    }
+
+    #wishes-trigger {
+        right: 5%;
+    }
+}
+
+@media (min-width: 1000px) {
+    #music-trigger {
+        right: 20%;
+    }
+
+    #wishes-trigger {
+        right: 20%;
+    }
 }
