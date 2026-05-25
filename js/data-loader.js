@@ -166,7 +166,7 @@ function initWeddingData() {
     setElementText('.sec-intro .sub-head', WEDDING_DATA.intro.subHead);
     setElementText('#pre-guest-text', WEDDING_DATA.intro.preGuestText);
     setElementText('.guest-name', guestName);
-    setElementText('#invitation-message', replacePronoun(WEDDING_DATA.intro.invitationMessage));
+    setElementHtml('#invitation-message', replacePronoun(WEDDING_DATA.intro.invitationMessage));
     setElementText('.time-highlight', WEDDING_DATA.intro.timeHighlight);
     setElementText('.lunar-time', WEDDING_DATA.intro.lunarTime);
     setElementText('.location-title', WEDDING_DATA.intro.locationTitle);
@@ -293,3 +293,26 @@ function setupCalendarHighlight() {
         }
     });
 }
+
+// --- ANIMATION OBSERVER ---
+document.addEventListener("DOMContentLoaded", () => {
+    const animatedElements = document.querySelectorAll('.envelope-header, .couple-header-decor, .gallery-header-decor, .extra-text-bar, .sweet-wedding-header, .fade-up, .fade-in, .zoom-in, .fade-in-left, .fade-in-right');
+    
+    if ('IntersectionObserver' in window) {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('in-view');
+                    observer.unobserve(entry.target); // Chỉ chạy animation 1 lần
+                }
+            });
+        }, { threshold: 0.15 });
+
+        animatedElements.forEach(el => {
+            observer.observe(el);
+        });
+    } else {
+        // Fallback: nếu trình duyệt không hỗ trợ, hiển thị ngay
+        animatedElements.forEach(el => el.classList.add('in-view'));
+    }
+});

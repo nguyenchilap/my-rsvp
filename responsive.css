@@ -1,0 +1,10 @@
+/* --- MOBILE RESPONSIVE STYLES --- */
+@media (max-width: 450px) {
+    .wrapper {
+        overflow: hidden;
+    }
+
+    #music-trigger {
+        right: 5%;
+    }
+}

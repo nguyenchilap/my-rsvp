@@ -1,0 +1,173 @@
+/* --- CSS ANIMATIONS --- */
+@keyframes giftBounceShake {
+    0%,
+    100% {
+        transform: scale(1) rotate(0deg);
+    }
+    10% {
+        transform: scale(1.08) rotate(-4deg);
+    }
+    20% {
+        transform: scale(1.08) rotate(4deg);
+    }
+    30% {
+        transform: scale(1.08) rotate(-4deg);
+    }
+    40% {
+        transform: scale(1.08) rotate(4deg);
+    }
+    50% {
+        transform: scale(1) rotate(0deg);
+    }
+}
+
+@keyframes pulse {
+    0%,
+    100% {
+        opacity: 0.6;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1.03);
+    }
+}
+
+@keyframes rotateContinuous {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* --- HEADER TEXT SLIDE-IN ANIMATIONS --- */
+.envelope-header span,
+.couple-header-decor span,
+.gallery-header-decor span,
+.extra-text-bar span,
+.sweet-wedding-header span {
+    opacity: 0;
+    display: inline-block;
+}
+
+.envelope-header.in-view span:nth-child(1),
+.couple-header-decor.in-view span:nth-child(1),
+.gallery-header-decor.in-view span:nth-child(1),
+.extra-text-bar.in-view span:nth-child(1),
+.sweet-wedding-header.in-view span:nth-child(1) {
+    animation: slideInLeft 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+.envelope-header.in-view span:nth-child(2),
+.couple-header-decor.in-view span:nth-child(2),
+.gallery-header-decor.in-view span:nth-child(2),
+.extra-text-bar.in-view span:nth-child(2),
+.sweet-wedding-header.in-view span:nth-child(2) {
+    animation: slideInUp 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+    animation-delay: 0.2s;
+}
+
+.envelope-header.in-view span:nth-child(3),
+.couple-header-decor.in-view span:nth-child(3),
+.gallery-header-decor.in-view span:nth-child(3),
+.extra-text-bar.in-view span:nth-child(3),
+.sweet-wedding-header.in-view span:nth-child(3) {
+    animation: slideInRight 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+@keyframes slideInLeft {
+    0% {
+        transform: translateX(-80px);
+        opacity: 0;
+    }
+    100% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideInRight {
+    0% {
+        transform: translateX(80px);
+        opacity: 0;
+    }
+    100% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideInUp {
+    0% {
+        transform: translateY(60px);
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* --- SCROLL ANIMATIONS --- */
+.fade-up {
+    opacity: 0;
+    transform: translateY(60px);
+    transition: opacity 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.fade-up.in-view {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.fade-in {
+    opacity: 0;
+    transition: opacity 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.fade-in.in-view {
+    opacity: 1;
+}
+
+.zoom-in {
+    opacity: 0;
+    transform: scale(0.95);
+    transition: opacity 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.zoom-in.in-view {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.fade-in-left {
+    opacity: 0;
+    transform: translateX(-80px);
+    transition: opacity 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.fade-in-left.in-view {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.fade-in-right {
+    opacity: 0;
+    transform: translateX(80px);
+    transition: opacity 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.fade-in-right.in-view {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.delay-1 {
+    transition-delay: 0.2s !important;
+}
+
+.delay-2 {
+    transition-delay: 0.4s !important;
+}

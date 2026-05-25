@@ -27,28 +27,28 @@ const WEDDING_DATA = {
     pageTitle: "Wedding Invitation - Chí Lập & Quế Anh",
 
     // Nhạc nền (Nhấp mở thiệp sẽ tự động phát bài này)
-    audioUrl: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
+    audioUrl: "./assets/cam-emcoconyeuanhkhong.mp3",
 
     // Các hình ảnh trang trí, icon đồ họa của thiệp
     decorations: {
         // Hoa góc trên bên trái
-        topLeftFlower: "https://assets.cinelove.me/resources/bouquet/gm7mq3ru5s7k4o1dt5ymhp.png",
+        topLeftFlower: "./assets/flower-1.png",
         // Hoa góc dưới bên phải
-        bottomRightFlower: "https://assets.cinelove.me/resources/bouquet/unri8axa4zmlj5408kc4ko.png",
+        bottomRightFlower: "./assets/flower-2.png",
         // Dải phân cách hoa văn giữa các nội dung
         dividerSvg: "https://assets.cinelove.me/resources/dividers/16cvdln0hsto193fhow8kr.svg",
         // Nút sáp niêm phong phong bì thư ngoài trang bìa
-        waxSeal: "https://assets.cinelove.me/assets/plugins/wax-seal.webp",
+        waxSeal: "./assets/wax-seal.webp",
         // Biểu tượng chiếc đĩa nhạc điều khiển bật/tắt
         musicIcon: "https://assets.cinelove.me/assets/audio-1.png",
         // Cành cây nhỏ trang trí phía dưới đếm ngược
         branchIcon: "https://assets.cinelove.me/templates/assets/0189eb35-5cf1-4525-a8d0-867f70e0bf67/b298e6ad-dd15-475c-aca4-c3f0850f44fc.png",
         // Hình nhân vật cô dâu chú rể chibi ở phần hộp quà cưới
-        characterIcon: "https://assets.cinelove.me/resources/characters/h4py3okq2aoga2u5n94fcq.png",
+        characterIcon: "./assets/character.png",
         // Cành lá trang trí footer ở cuối trang
-        footerBanner: "https://assets.cinelove.me/templates/assets/0189eb35-5cf1-4525-a8d0-867f70e0bf67/b2369584-b526-46a5-851b-034c9f2e1e0f.png",
+        footerBanner: "./assets/thankyou.png",
         // Hình trái tim đệm dưới ngày cưới trong lịch đám cưới
-        calendarHeart: "https://assets.cinelove.me/assets/plugins/calen_heart_1.png"
+        calendarHeart: "./assets/calen_heart_1.png"
     },
 
     // ----------------------------------------------------
@@ -75,7 +75,7 @@ const WEDDING_DATA = {
         // Tên khách mời hiển thị mặc định trên thiệp (Nếu không truyền tham số qua URL)
         defaultGuestName: "Chị Nga",
 
-        invitationMessage: "ĐẾN DỰ BUỔI TIỆC CHUNG VUI CÙNG GIA ĐÌNH CHÚNG MÌNH VÀO LÚC",
+        invitationMessage: "ĐẾN DỰ BUỔI TIỆC CHUNG VUI<br>CÙNG GIA ĐÌNH CHÚNG MÌNH VÀO LÚC",
 
         // Thời gian cử hành hôn lễ
         timeHighlight: "11 GIỜ 00 | THỨ SÁU | 17.07.2026",
@@ -128,7 +128,7 @@ Rất mong sớm được đón tiếp Chị! ❤️”`
         },
 
         // Câu thơ/quote lãng mạn (hỗ trợ các thẻ <br> để xuống dòng)
-        poemViet: "Em có nghe<br>hương tình duyên mình khi còn đang chớm nở.<br>Thanh xuân mình đầy<br>nhiệt huyết làm cho thiên lý giàn hoa nhuốm đỏ.",
+        poemViet: "Loving is hard, but loving is real<br>And when the loving is right then it's beautiful.",
         poemEng: "My heart, the bird of the wilderness has found its sky in your eye.",
 
         // Lời nhắn cảm ơn chung gửi tới gia đình & bạn bè
@@ -140,7 +140,7 @@ Rất mong sớm được đón tiếp Chị! ❤️”`
     // ----------------------------------------------------
     gallery: {
         // Ảnh lớn đầu mục Album
-        welcomeImg: "https://assets.cinelove.me/templates/assets/0189eb35-5cf1-4525-a8d0-867f70e0bf67/2d021cc4-357c-48c9-9e46-81c3730d8c76.png",
+        welcomeImg: "./assets/welcome-filmstrip.png",
 
         // Danh sách liên kết hình ảnh trong lưới album (grid)
         images: [
@@ -169,7 +169,7 @@ Rất mong sớm được đón tiếp Chị! ❤️”`
         extraPhoto2: "./assets/sub-gallery-3.JPG",
 
         // Ảnh chữ I LOVE YOU
-        loveImg: "https://assets.cinelove.me/templates/assets/0189eb35-5cf1-4525-a8d0-867f70e0bf67/b298e6ad-dd15-475c-aca4-c3f0850f44fc.png"
+        loveImg: "./assets/iloveyou.png"
     },
 
     // ----------------------------------------------------
@@ -177,13 +177,13 @@ Rất mong sớm được đón tiếp Chị! ❤️”`
     // ----------------------------------------------------
     countdown: {
         // Câu dẫn dắt lãng mạn phía trên bộ đếm ngược
-        title: "Cả rừng tiếng ve thổi tia nắng lướt qua trên khuôn mặt<br>Hạ cùng đến nghe mỗi hình bóng em thướt tha êm khuôn nhạc",
+        title: "Sông thì thào bằng sóng nhỏ, dẫu mai đời cay nghiệt<br>Thì gió rì rào vẫn vòng vo qua sáu vài mười hai nhịp",
 
         // Ngày giờ tổ chức đám cưới đích xác (định dạng YYYY-MM-DDTHH:mm:ss) để JavaScript tự động đếm ngược
         targetDate: "2026-07-17T11:00:00",
 
         // Câu dẫn nhỏ bên dưới bộ đếm ngược
-        postText: "Mong gió xuân dịu dàng với em hơn,<br> Xua tan muộn phiền,<br> Để mọi thứ chỉ còn lại dịu êm."
+        postText: "We treasured our moments<br>even when we're not allowed to<br>I was thinking... theres nothing wrong about you"
     },
 
     // ----------------------------------------------------
@@ -191,25 +191,25 @@ Rất mong sớm được đón tiếp Chị! ❤️”`
     // ----------------------------------------------------
     calendar: {
         // Ảnh chữ "Save The Date"
-        topImage: "https://assets.cinelove.me/templates/assets/0189eb35-5cf1-4525-a8d0-867f70e0bf67/e89ebd60-3f04-4013-9c11-9103dc96a28a.png",
+        topImage: "./assets/savethedate.png",
 
         // Câu intro phía dưới chữ Save The Date
-        introText: "Đi một vòng lớn rồi vẫn gặp anh,<br>Từ đó, thế gian bỗng hóa dịu dàng.",
+        introText: "I love you<br>Anh yêu cái cách em khiến anh tỏa sáng",
 
         // Khung polaroid overlay (Ảnh khung tối màu có phần trong suốt)
-        polaroidFrame: "https://assets.cinelove.me/templates/assets/0189eb35-5cf1-4525-a8d0-867f70e0bf67/66d12607-1554-4e57-b216-4f105da70233.png",
+        polaroidFrame: "./assets/calendar-frame.png",
 
         // Ảnh của couple nằm dưới khung polaroid
-        photo: "./assets/gallery-1.JPG",
+        photo: "./assets/callendar.JPG",
 
         // Text ngày tháng nằm ở phần đuôi tối màu của khung polaroid
-        polaroidText: "Thứ Bảy, 22/05/2050<br>Âm lịch 22/4 | 12:00 PM",
+        polaroidText: "Thứ Sáu, 17/07/2026<br>Âm lịch 03/06 | 11:00 AM",
 
         // Ngày đám cưới cần làm nổi bật (sẽ được đóng dấu trái tim trên lịch)
-        weddingDay: 22,
+        weddingDay: 17,
 
         // Câu quote thơ lãng mạn phía dưới cùng
-        bottomQuote: "Hạnh phúc lớn nhất chính là được nắm tay anh,<br>Cùng nhau đi hết cuộc đời lãng mạn này"
+        bottomQuote: "Anh yêu cái cách em khiến anh nghĩ<br>rằng ngoài tình yêu của em không có gì thỏa đáng"
     },
 
     // ----------------------------------------------------
@@ -229,7 +229,7 @@ Rất mong sớm được đón tiếp Chị! ❤️”`
         successAlert: "Cảm ơn {name} đã gửi phản hồi xác nhận tham dự đám cưới của Chí Lập & Quế Anh!",
 
         // Câu quote thơ cuối cùng ở mục RSVP
-        bottomQuote: "“Hết lần này đến lần khác, đem chuyện tình riêng khoe với thế gian,<br>Chỉ vì mỗi lần nhìn em, anh lại thấy đó là điều đáng tự hào nhất.”"
+        bottomQuote: "“And I need you to love me<br>Bad and the ugly”"
     },
 
     // ----------------------------------------------------
