@@ -51,6 +51,9 @@ function getGuestInfo() {
         if (firstWord === "gia" && words[1]?.toLowerCase() === "đình") {
             inferredPrefix = "Gia đình";
             inferredName = words.slice(2).join(" ");
+        } else if (firstWord === "bác" && words[1]?.toLowerCase() === "sĩ") {
+            inferredPrefix = "Bác sĩ";
+            inferredName = words.slice(2).join(" ");
         } else if (firstWord === "vợ" && words[1]?.toLowerCase() === "chồng" && validPrefixes.includes(words[2]?.toLowerCase())) {
             inferredPrefix = "Vợ chồng " + words[2].charAt(0).toUpperCase() + words[2].slice(1).toLowerCase();
             inferredName = words.slice(3).join(" ");
@@ -137,7 +140,7 @@ function initWeddingData() {
 
     if (isParentMode) {
         quoteTemplate = WEDDING_DATA.quote.contentParentMode || quoteTemplate;
-    } else if (["anh", "chị"].includes(cleanPrefix)) {
+    } else if (["anh", "chị", "bác sĩ"].includes(cleanPrefix)) {
         quoteTemplate = WEDDING_DATA.quote.contentAnhChi || quoteTemplate;
     } else if (["em", "bé"].includes(cleanPrefix)) {
         quoteTemplate = WEDDING_DATA.quote.contentEmBe || quoteTemplate;

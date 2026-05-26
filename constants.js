@@ -20,6 +20,7 @@ const WEDDING_DATA = {
         "bà": "Chúng con",
         "em": "Anh chị",
         "bé": "Anh chị",
+        "bác sĩ": "Chúng em",
         "default": "Chúng con"
     },
 
