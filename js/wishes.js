@@ -76,10 +76,10 @@
                 }
             }
 
-            const successText = "Cảm ơn " + (prefix ? prefix + " " : "") + displayName + " đã gửi lời chúc!";
+            const successText = "Cảm ơn " + (prefix ? prefix + " " : "") + displayName + " đã gửi lời chúc! <br>Vui lòng chờ quản trị viên duyệt để hiển thị lên Sổ lưu bút";
             const successTextEl = document.getElementById('wishes-success-text');
             if (successTextEl) {
-                successTextEl.textContent = successText;
+                successTextEl.innerHTML = successText;
             }
 
             const form = document.getElementById('wishesForm');
@@ -98,10 +98,84 @@
         }
     }
 
+    async function handleSheetWishes(event) {
+        event.preventDefault();
+        event.stopPropagation();
+
+        const nameInput = document.getElementById('wishes-sheet-name');
+        const messageInput = document.getElementById('wishes-sheet-message');
+        if (!nameInput || !messageInput) return;
+
+        const name = nameInput.value.trim().substring(0, 100);
+        const message = messageInput.value.trim().substring(0, 1000);
+
+        if (!name || !message) return;
+
+        const submitBtn = document.getElementById('wishes-sheet-btn-text');
+        const originalBtnText = submitBtn ? submitBtn.textContent : "GỬI";
+
+        if (submitBtn) {
+            submitBtn.disabled = true;
+            submitBtn.textContent = "ĐANG GỬI...";
+        }
+
+        try {
+            await firestoreDb.collection("wishes").add({
+                name: name,
+                message: message,
+                approved: false,
+                lang: "vi",
+                createdAt: firebase.firestore.FieldValue.serverTimestamp()
+            });
+
+            // Xử lý tiền tố danh xưng
+            let prefix = "";
+            let displayName = name;
+            const words = displayName.split(" ");
+            const firstWord = words[0].toLowerCase();
+            const validPrefixes = ["anh", "chị", "cô", "bác", "chú", "dì", "ông", "bà", "bạn", "em", "cháu", "bé"];
+
+            if (firstWord === "gia" && words[1] && words[1].toLowerCase() === "đình") {
+                prefix = "Gia đình";
+                displayName = words.slice(2).join(" ");
+            } else if (firstWord === "vợ" && words[1] && words[1].toLowerCase() === "chồng" && words[2] && validPrefixes.includes(words[2].toLowerCase())) {
+                prefix = "Vợ chồng " + words[2].charAt(0).toUpperCase() + words[2].slice(1).toLowerCase();
+                displayName = words.slice(3).join(" ");
+            } else if (validPrefixes.includes(firstWord)) {
+                prefix = words[0].charAt(0).toUpperCase() + words[0].slice(1).toLowerCase();
+                displayName = words.slice(1).join(" ");
+            } else if (typeof getGuestInfo === 'function') {
+                const urlInfo = getGuestInfo();
+                if (urlInfo && urlInfo.prefix) {
+                    prefix = urlInfo.prefix.charAt(0).toUpperCase() + urlInfo.prefix.slice(1).toLowerCase();
+                }
+            }
+
+            const successText = "Cảm ơn " + (prefix ? prefix + " " : "") + displayName + " đã gửi lời chúc! Vui lòng chờ quản trị viên duyệt để hiển thị lên Sổ lưu bút";
+            const successTextEl = document.getElementById('wishes-sheet-success-text');
+            if (successTextEl) {
+                successTextEl.textContent = successText;
+            }
+
+            const form = document.getElementById('wishesSheetForm');
+            const successMsgBox = document.getElementById('wishes-sheet-success-message');
+
+            if (form) form.style.display = 'none';
+            if (successMsgBox) successMsgBox.style.display = 'block';
+
+        } catch (error) {
+            console.error("Lỗi khi gửi lời chúc:", error);
+            alert("Đã xảy ra lỗi khi gửi lời chúc. Vui lòng thử lại!");
+            if (submitBtn) {
+                submitBtn.disabled = false;
+                submitBtn.textContent = originalBtnText;
+            }
+        }
+    }
+
     function initWishesForm() {
         const form = document.getElementById('wishesForm');
-        if (!form) return;
-        form.addEventListener('submit', handleWishes);
+        if (form) form.addEventListener('submit', handleWishes);
 
         const wishesNameInput = document.getElementById('wishes-name');
 
@@ -115,6 +189,22 @@
                 }
             }
         }, 100);
+
+        const sheetForm = document.getElementById('wishesSheetForm');
+        if (sheetForm) {
+            sheetForm.addEventListener('submit', handleSheetWishes);
+            const sheetNameInput = document.getElementById('wishes-sheet-name');
+            setTimeout(() => {
+                if (sheetNameInput && !sheetNameInput.value) {
+                    if (typeof getGuestInfo === 'function') {
+                        const guestInfo = getGuestInfo();
+                        if (guestInfo && guestInfo.fullName && guestInfo.fullName !== "Bạn" && guestInfo.fullName !== "Nga") {
+                            sheetNameInput.value = guestInfo.fullName;
+                        }
+                    }
+                }
+            }, 100);
+        }
 
         // Hiển thị tooltip sau khi tải trang một thời gian ngắn
         setTimeout(() => {

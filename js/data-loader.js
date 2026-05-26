@@ -132,7 +132,12 @@ function initWeddingData() {
 
     let quoteTemplate = WEDDING_DATA.quote.defaultContent || "";
 
-    if (["anh", "chị"].includes(cleanPrefix)) {
+    const urlParams = new URLSearchParams(window.location.search);
+    const isParentMode = urlParams.get('parent') === '1' || urlParams.get('parent') === 'true';
+
+    if (isParentMode) {
+        quoteTemplate = WEDDING_DATA.quote.contentParentMode || quoteTemplate;
+    } else if (["anh", "chị"].includes(cleanPrefix)) {
         quoteTemplate = WEDDING_DATA.quote.contentAnhChi || quoteTemplate;
     } else if (["em", "bé"].includes(cleanPrefix)) {
         quoteTemplate = WEDDING_DATA.quote.contentEmBe || quoteTemplate;

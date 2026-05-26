@@ -1,32 +1,40 @@
 /* --- CSS ANIMATIONS --- */
 @keyframes giftBounceShake {
+
     0%,
     100% {
         transform: scale(1) rotate(0deg);
     }
+
     10% {
         transform: scale(1.08) rotate(-4deg);
     }
+
     20% {
         transform: scale(1.08) rotate(4deg);
     }
+
     30% {
         transform: scale(1.08) rotate(-4deg);
     }
+
     40% {
         transform: scale(1.08) rotate(4deg);
     }
+
     50% {
         transform: scale(1) rotate(0deg);
     }
 }
 
 @keyframes pulse {
+
     0%,
     100% {
         opacity: 0.6;
         transform: scale(1);
     }
+
     50% {
         opacity: 1;
         transform: scale(1.03);
@@ -37,6 +45,7 @@
     from {
         transform: rotate(0deg);
     }
+
     to {
         transform: rotate(360deg);
     }
@@ -82,6 +91,7 @@
         transform: translateX(-80px);
         opacity: 0;
     }
+
     100% {
         transform: translateX(0);
         opacity: 1;
@@ -93,6 +103,7 @@
         transform: translateX(80px);
         opacity: 0;
     }
+
     100% {
         transform: translateX(0);
         opacity: 1;
@@ -104,6 +115,7 @@
         transform: translateY(60px);
         opacity: 0;
     }
+
     100% {
         transform: translateY(0);
         opacity: 1;
@@ -162,6 +174,10 @@
 .fade-in-right.in-view {
     opacity: 1;
     transform: translateX(0);
+
+    &.bg-flower.bottom-right {
+        transform: translateX(0) rotate(-28deg);
+    }
 }
 
 .delay-1 {

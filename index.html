@@ -68,6 +68,18 @@
             <div class="wishes-sheet-content" id="wishes-sheet-content">
                 <div style="text-align:center; padding:20px; color:#666;">Đang tải...</div>
             </div>
+            <div class="wishes-sheet-footer" style="padding: 15px 24px; border-top: 1px solid #eee; background: #fff; z-index: 15; position: relative; border-bottom-left-radius: 20px; border-bottom-right-radius: 20px;">
+                <form id="wishesSheetForm" style="display: flex; gap: 10px; align-items: stretch;">
+                    <div style="display: flex; flex-direction: column; gap: 8px; flex: 1;">
+                        <input type="text" id="wishes-sheet-name" placeholder="Tên người gửi" required style="padding: 10px; border: 1px solid #ddd; border-radius: 6px; font-family: 'Quicksand', sans-serif; font-size: 14px; outline: none; width: 100%;">
+                        <input type="text" id="wishes-sheet-message" placeholder="Lời chúc..." required style="padding: 10px; border: 1px solid #ddd; border-radius: 6px; font-family: 'Quicksand', sans-serif; font-size: 14px; outline: none; width: 100%;">
+                    </div>
+                    <button type="submit" class="btn-submit" id="wishes-sheet-btn-text" style="padding: 0 15px; margin: 0; background-color: var(--primary-color); color: #fff; border: none; border-radius: 6px; font-family: 'Quicksand', sans-serif; font-weight: 600; cursor: pointer; white-space: nowrap;">GỬI</button>
+                </form>
+                <div id="wishes-sheet-success-message" style="display: none; text-align: center; padding-top: 10px;">
+                    <div id="wishes-sheet-success-text" style="color: #4caf50; font-size: 13px; font-weight: 500; font-family: 'Quicksand', sans-serif;">Cảm ơn bạn đã gửi lời chúc! Vui lòng chờ quản trị viên duyệt để hiển thị lên Sổ lưu bút</div>
+                </div>
+            </div>
         </div>
 
         <!-- ================= LAYER 1: MÀN HÌNH PHONG BÌ MỞ ĐẦU ================= -->
@@ -374,8 +386,8 @@
                             <polyline points="8 12 11 15 16 9"></polyline>
                         </svg>
                         <div id="wishes-success-text"
-                            style="color: #4caf50; font-size: 16px; font-weight: 500; font-family: 'Quicksand', sans-serif;">
-                            Cảm ơn bạn đã gửi lời chúc!</div>
+                            style="color: #4caf50; font-size: 16px; font-weight: 500; font-family: 'Quicksand', sans-serif; line-height: 1.5;">
+                            Cảm ơn bạn đã gửi lời chúc! <br>Vui lòng chờ quản trị viên duyệt để hiển thị lên Sổ lưu bút</div>
                         <button type="button" class="btn-submit"
                             style="margin-top: 20px; background-color: var(--accent-color);"
                             onclick="openWishesSheet()">XEM LỜI CHÚC</button>

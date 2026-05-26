@@ -250,6 +250,7 @@ body {
                 width: 100%;
                 height: 100%;
                 object-fit: cover;
+                object-position: center top;
             }
         }
 
@@ -468,7 +469,7 @@ body {
     transform: translateX(-50%);
     width: 100%;
     max-width: 450px;
-    height: 70vh;
+    height: 80vh;
     background-color: #fff;
     border-top-left-radius: 20px;
     border-top-right-radius: 20px;
@@ -1053,6 +1054,7 @@ section {
             width: 100%;
             height: 100%;
             object-fit: cover;
+            object-position: center bottom;
             display: block;
         }
     }
