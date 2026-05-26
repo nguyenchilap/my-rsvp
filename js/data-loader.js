@@ -54,6 +54,9 @@ function getGuestInfo() {
         } else if (firstWord === "bác" && words[1]?.toLowerCase() === "sĩ") {
             inferredPrefix = "Bác sĩ";
             inferredName = words.slice(2).join(" ");
+        } else if (firstWord === "vợ" && words[1]?.toLowerCase() === "chồng" && words[2]?.toLowerCase() === "bác" && words[3]?.toLowerCase() === "sĩ") {
+            inferredPrefix = "Vợ chồng Bác sĩ";
+            inferredName = words.slice(4).join(" ");
         } else if (firstWord === "vợ" && words[1]?.toLowerCase() === "chồng" && validPrefixes.includes(words[2]?.toLowerCase())) {
             inferredPrefix = "Vợ chồng " + words[2].charAt(0).toUpperCase() + words[2].slice(1).toLowerCase();
             inferredName = words.slice(3).join(" ");
