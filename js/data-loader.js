@@ -309,6 +309,14 @@ function initWeddingData() {
 
     // --- MAPPING HỘP QUÀ CƯỚI ---
     setElementText('#registry-title-text', WEDDING_DATA.registry.title);
+
+    // Ẩn/hiện Hộp Quà Cưới dựa vào tham số qr=1 trên url
+    if (urlParams.get('qr') === '1') {
+        const secRegistry = document.getElementById('sec-registry');
+        if (secRegistry) {
+            secRegistry.style.display = '';
+        }
+    }
 }
 
 /**
