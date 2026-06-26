@@ -48,7 +48,10 @@ function getGuestInfo() {
         let inferredPrefix = "";
         let inferredName = fullName;
 
-        if (firstWord === "gia" && words[1]?.toLowerCase() === "đình") {
+        if (firstWord === "gia" && words[1]?.toLowerCase() === "đình" && validPrefixes.includes(words[2]?.toLowerCase())) {
+            inferredPrefix = "Gia đình " + words[2].charAt(0).toUpperCase() + words[2].slice(1).toLowerCase();
+            inferredName = words.slice(3).join(" ");
+        } else if (firstWord === "gia" && words[1]?.toLowerCase() === "đình") {
             inferredPrefix = "Gia đình";
             inferredName = words.slice(2).join(" ");
         } else if (firstWord === "bác" && words[1]?.toLowerCase() === "sĩ") {
@@ -91,6 +94,8 @@ function getCouplePronoun(prefix) {
 
     if (cleanPrefix.startsWith("vợ chồng ")) {
         cleanPrefix = cleanPrefix.replace("vợ chồng ", "").trim();
+    } else if (cleanPrefix.startsWith("gia đình ")) {
+        cleanPrefix = cleanPrefix.replace("gia đình ", "").trim();
     }
 
     if (WEDDING_DATA.couplePronounMap && WEDDING_DATA.couplePronounMap[cleanPrefix]) {
@@ -134,6 +139,8 @@ function initWeddingData() {
     let cleanPrefix = prefix ? prefix.toLowerCase().trim() : "";
     if (cleanPrefix.startsWith("vợ chồng ")) {
         cleanPrefix = cleanPrefix.replace("vợ chồng ", "").trim();
+    } else if (cleanPrefix.startsWith("gia đình ")) {
+        cleanPrefix = cleanPrefix.replace("gia đình ", "").trim();
     }
 
     let quoteTemplate = WEDDING_DATA.quote.defaultContent || "";
