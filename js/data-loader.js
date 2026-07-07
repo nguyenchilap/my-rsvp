@@ -43,7 +43,7 @@ function getGuestInfo() {
         const fullName = decodeURIComponent(toParam).trim();
         const words = fullName.split(" ");
         const firstWord = words[0].toLowerCase();
-        const validPrefixes = ["anh", "chị", "cô", "bác", "chú", "dì", "ông", "bà", "bạn", "em", "cháu", "bé", "thím", "mợ"];
+        const validPrefixes = ["anh", "chị", "cô", "bác", "chú", "dì", "ông", "bà", "bạn", "em", "cháu", "bé", "thím", "mợ", "o"];
 
         let inferredPrefix = "";
         let inferredName = fullName;
