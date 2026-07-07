@@ -43,7 +43,7 @@ function getGuestInfo() {
         const fullName = decodeURIComponent(toParam).trim();
         const words = fullName.split(" ");
         const firstWord = words[0].toLowerCase();
-        const validPrefixes = ["anh", "chị", "cô", "bác", "chú", "dì", "ông", "bà", "bạn", "em", "cháu", "bé"];
+        const validPrefixes = ["anh", "chị", "cô", "bác", "chú", "dì", "ông", "bà", "bạn", "em", "cháu", "bé", "thím", "mợ"];
 
         let inferredPrefix = "";
         let inferredName = fullName;
@@ -112,10 +112,13 @@ function initWeddingData() {
     document.title = WEDDING_DATA.pageTitle;
 
     // Lấy thông tin khách mời và danh xưng tương ứng
+    const urlParams = new URLSearchParams(window.location.search);
+    const isParentMode = urlParams.get('parent') === '1' || urlParams.get('parent') === 'true';
+
     const guestInfo = getGuestInfo();
     const guestName = guestInfo.fullName;
     const prefix = guestInfo.prefix;
-    const couplePronoun = getCouplePronoun(prefix);
+    const couplePronoun = isParentMode ? "Chúng tôi" : getCouplePronoun(prefix);
 
     // Hàm tiện ích thay thế danh xưng của cô dâu chú rể ("Chúng mình" -> "Chúng em"/"Chúng con")
     function replacePronoun(text) {
@@ -144,9 +147,6 @@ function initWeddingData() {
     }
 
     let quoteTemplate = WEDDING_DATA.quote.defaultContent || "";
-
-    const urlParams = new URLSearchParams(window.location.search);
-    const isParentMode = urlParams.get('parent') === '1' || urlParams.get('parent') === 'true';
 
     if (isParentMode) {
         quoteTemplate = WEDDING_DATA.quote.contentParentMode || quoteTemplate;
